@@ -590,6 +590,13 @@ mk('ch-repeat','doughnut',
   {plugins:{legend:{display:true,position:'bottom',labels:{color:tick,font:{size:10},boxWidth:10,padding:10}},tooltip:{...tt,callbacks:{label:c=>` $${c.raw.toLocaleString()}`}}},scales:undefined}
 );
 
+// ── Services panel: price tier distribution
+mk('ch-prices','doughnut',
+  {labels:['$0 comp/pending','<$100','$100–199 (core)','$200–299','$300+'],
+   datasets:[{data:[14,13,34,14,8],backgroundColor:[C.dim+'CC',C.sky+'CC',C.teal+'CC',C.gold+'CC',C.coral+'CC'],borderColor:'#192840',borderWidth:2}]},
+  {plugins:{legend:{display:false},tooltip:{...tt,callbacks:{label:c=>` ${c.label}: ${c.raw} orders`}}},scales:undefined}
+);
+
 // ── Prices comparison
 mk('ch-pricing','bar',
   {labels:['SPV (entry)','Industry avg','SPV (bundle)','Virtuance','Premium market','Luxury target'],
@@ -690,7 +697,7 @@ function go(id,el){
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
   el.classList.add('active');
   document.getElementById('panel-'+id).classList.add('active');
-  setTimeout(()=>Chart.instances.forEach(c=>c.resize()),60);
+  setTimeout(()=>Object.values(Chart.instances).forEach(c=>c.resize()),60);
 }
 </script>
 </body>
